@@ -10,7 +10,8 @@ function App() {
   const analyze = async () => {
     setLoading(true)
     try {
-      const resp = await axios.post('/api/analyze', { resume: resumeText, job: jobText })
+      const base = (import.meta as any).env?.VITE_API_BASE_URL || 'http://localhost:8000'
+      const resp = await axios.post(`${base}/api/analyze`, { resume: resumeText, job: jobText })
       setResult(resp.data)
     } catch (e) {
       setResult({ error: 'Failed to analyze' })
